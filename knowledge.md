@@ -1,11 +1,11 @@
 # Spring Boot + MyBatis 知识点整理
 
 ## 1. 项目分层结构
-
+````
 Controller → Service → Mapper → Database
-↓ ↓ ↓
-接收请求 业务逻辑 执行SQL
-
+↓              ↓       ↓           ↓
+接收请求    业务逻辑  执行SQL    连接数据库
+````
 
 ## 2. 核心注解
 

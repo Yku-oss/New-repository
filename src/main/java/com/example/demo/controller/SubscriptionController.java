@@ -23,6 +23,16 @@ public class SubscriptionController {
     public Subscription getById(@PathVariable Integer id) {
         return subscriptionService.getById(id);
     }
+
+    @GetMapping("/customer/{customerId}")
+    public List<Subscription> getByCustomer(@PathVariable Integer customerId) {
+        return subscriptionService.getByCustomerId(customerId);
+    }
+
+    @GetMapping("/approval/{status}")
+    public List<Subscription> getByApprovalStatus(@PathVariable String status) {
+        return subscriptionService.getByApprovalStatus(status);
+    }
     
     @PostMapping
     public int add(@RequestBody Subscription subscription) {
@@ -32,5 +42,20 @@ public class SubscriptionController {
     @PutMapping("/{id}/cancel")
     public int cancel(@PathVariable Integer id) {
         return subscriptionService.cancel(id);
+    }
+
+    @PutMapping("/{id}/approve")
+    public int approve(@PathVariable Integer id) {
+        return subscriptionService.approve(id);
+    }
+
+    @PutMapping("/{id}/reject")
+    public int reject(@PathVariable Integer id) {
+        return subscriptionService.reject(id);
+    }
+
+    @PutMapping("/{id}/pay")
+    public int pay(@PathVariable Integer id, @RequestParam String paymentMethod) {
+        return subscriptionService.pay(id, paymentMethod);
     }
 }

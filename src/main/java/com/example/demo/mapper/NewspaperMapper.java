@@ -14,12 +14,27 @@ public interface NewspaperMapper {
     @Select("SELECT * FROM newspaper WHERE id = #{id}")
     Newspaper findById(@Param("id") Integer id);
 
-    @Insert("INSERT INTO newspaper (name, price, period, stock) VALUES (#{name}, #{price}, #{period}, #{stock})")
+    @Select("SELECT * FROM newspaper WHERE category_id = #{categoryId}")
+    List<Newspaper> findByCategoryId(@Param("categoryId") Integer categoryId);
+
+    @Select("SELECT * FROM newspaper WHERE recommended = true")
+    List<Newspaper> findRecommended();
+
+    @Select("SELECT * FROM newspaper WHERE stock < #{threshold}")
+    List<Newspaper> findLowStock(@Param("threshold") Integer threshold);
+
+    @Insert("INSERT INTO newspaper (name, price, period, stock, category_id, supplier_id, recommended, description, image_url) " +
+            "VALUES (#{name}, #{price}, #{period}, #{stock}, #{categoryId}, #{supplierId}, #{recommended}, #{description}, #{imageUrl})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Newspaper newspaper);
 
-    @Update("UPDATE newspaper SET name=#{name}, price=#{price}, period=#{period}, stock=#{stock} WHERE id=#{id}")
+    @Update("UPDATE newspaper SET name=#{name}, price=#{price}, period=#{period}, stock=#{stock}, " +
+            "category_id=#{categoryId}, supplier_id=#{supplierId}, recommended=#{recommended}, " +
+            "description=#{description}, image_url=#{imageUrl} WHERE id=#{id}")
     int update(Newspaper newspaper);
+
+    @Update("UPDATE newspaper SET stock = stock + #{quantity} WHERE id = #{id}")
+    int updateStock(@Param("id") Integer id, @Param("quantity") Integer quantity);
 
     @Delete("DELETE FROM newspaper WHERE id = #{id}")
     int deleteById(@Param("id") Integer id);

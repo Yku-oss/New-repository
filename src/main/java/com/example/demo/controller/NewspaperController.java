@@ -1,6 +1,3 @@
-//这是一个Spring Boot控制器类，定义了一个RESTful API端点，返回一个简单的字符串响应。
-// 相当于kafka ，接受数据，处理数据，发送数据
-// 是控制处理请求与响应的类，是处理层的核心组件，负责处理HTTP请求并返回响应。
 package com.example.demo.controller;
 
 import com.example.demo.entity.Newspaper;
@@ -26,6 +23,21 @@ public class NewspaperController {
     public Newspaper getById(@PathVariable Integer id) {
         return newspaperService.getById(id);
     }
+
+    @GetMapping("/category/{categoryId}")
+    public List<Newspaper> getByCategory(@PathVariable Integer categoryId) {
+        return newspaperService.getByCategoryId(categoryId);
+    }
+
+    @GetMapping("/recommended")
+    public List<Newspaper> getRecommended() {
+        return newspaperService.getRecommended();
+    }
+
+    @GetMapping("/low-stock")
+    public List<Newspaper> getLowStock(@RequestParam(defaultValue = "10") Integer threshold) {
+        return newspaperService.getLowStock(threshold);
+    }
     
     @PostMapping
     public int add(@RequestBody Newspaper newspaper) {
@@ -36,6 +48,11 @@ public class NewspaperController {
     public int update(@PathVariable Integer id, @RequestBody Newspaper newspaper) {
         newspaper.setId(id);
         return newspaperService.update(newspaper);
+    }
+
+    @PutMapping("/{id}/stock")
+    public int updateStock(@PathVariable Integer id, @RequestParam Integer quantity) {
+        return newspaperService.updateStock(id, quantity);
     }
     
     @DeleteMapping("/{id}")
