@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {
@@ -30,8 +31,11 @@ public class CustomerController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> loginData) {
+        // 从请求体中获取登录数据，包括邮箱和密码
         String email = loginData.get("email");
         String password = loginData.get("password");
+        // 调用Service层的login方法进行登录验证，返回一个Customer对象，
+        // 如果登录成功则包含客户信息，否则为null
         Customer customer = customerService.login(email, password);
         Map<String, Object> result = new HashMap<>();
         if (customer != null) {

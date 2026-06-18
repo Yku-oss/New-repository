@@ -5,7 +5,6 @@ import com.example.demo.entity.Newspaper;
 import com.example.demo.service.NewspaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
