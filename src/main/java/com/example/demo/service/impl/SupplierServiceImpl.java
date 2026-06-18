@@ -1,3 +1,4 @@
+//供应商业务实现类，实现供应商增删改查等业务逻辑
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Supplier;

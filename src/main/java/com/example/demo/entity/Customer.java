@@ -1,3 +1,4 @@
+//客户实体类，包含客户基本信息（姓名、电话、地址、邮箱等）
 package com.example.demo.entity;
 
 import java.time.LocalDateTime;

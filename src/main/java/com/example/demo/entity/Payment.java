@@ -1,3 +1,4 @@
+//付款实体类，记录付款交易信息
 package com.example.demo.entity;
 
 import java.math.BigDecimal;

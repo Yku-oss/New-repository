@@ -1,3 +1,4 @@
+//数据分析控制器，提供销售统计、报表分析等数据接口
 package com.example.demo.controller;
 
 import com.example.demo.service.AnalysisService;

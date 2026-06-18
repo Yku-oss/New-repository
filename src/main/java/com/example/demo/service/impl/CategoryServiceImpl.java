@@ -1,3 +1,4 @@
+//分类业务实现类，实现分类增删改查等业务逻辑
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Category;

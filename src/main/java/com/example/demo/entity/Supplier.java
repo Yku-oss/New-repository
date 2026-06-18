@@ -1,3 +1,4 @@
+//供应商实体类，包含供应商基本信息
 package com.example.demo.entity;
 
 public class Supplier {

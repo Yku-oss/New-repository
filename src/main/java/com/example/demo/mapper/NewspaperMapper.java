@@ -1,3 +1,4 @@
+//报纸数据访问接口，定义报纸表的数据库操作（CRUD、库存管理等）
 package com.example.demo.mapper;
 
 import com.example.demo.entity.Newspaper;

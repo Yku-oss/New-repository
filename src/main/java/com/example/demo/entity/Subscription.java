@@ -1,3 +1,4 @@
+//订阅实体类，记录客户订阅报纸的信息（订阅起止时间、数量、状态等）
 package com.example.demo.entity;
 
 import java.math.BigDecimal;

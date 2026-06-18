@@ -1,3 +1,4 @@
+//分类管理控制器，处理报纸分类相关的HTTP请求
 package com.example.demo.controller;
 
 import com.example.demo.entity.Category;

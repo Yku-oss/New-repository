@@ -1,3 +1,4 @@
+//分类实体类，表示报纸的分类信息
 package com.example.demo.entity;
 
 public class Category {

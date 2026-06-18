@@ -1,3 +1,4 @@
+//报纸实体类，包含报纸基本信息（名称、价格、分类、库存等）
 package com.example.demo.entity;
 
 import java.math.BigDecimal;

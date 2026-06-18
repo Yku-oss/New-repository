@@ -1,3 +1,4 @@
+//分类数据访问接口，定义分类表的数据库操作
 package com.example.demo.mapper;
 
 import com.example.demo.entity.Category;

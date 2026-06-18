@@ -1,3 +1,4 @@
+//库存日志实体类，记录库存变动历史
 package com.example.demo.entity;
 
 import java.time.LocalDateTime;

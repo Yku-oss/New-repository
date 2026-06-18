@@ -1,3 +1,4 @@
+//分析业务实现类，实现销售统计、报表分析等业务逻辑
 package com.example.demo.service.impl;
 
 import com.example.demo.mapper.SubscriptionMapper;

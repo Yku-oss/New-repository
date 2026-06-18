@@ -1,3 +1,4 @@
+//订阅业务接口，定义订阅相关业务逻辑方法
 package com.example.demo.service;
 
 import com.example.demo.entity.Subscription;

@@ -1,3 +1,4 @@
+//订阅管理控制器，处理订阅相关的HTTP请求（订阅、续订、取消等）
 package com.example.demo.controller;
 
 import com.example.demo.entity.Subscription;

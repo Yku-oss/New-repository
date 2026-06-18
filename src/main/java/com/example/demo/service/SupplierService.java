@@ -1,3 +1,4 @@
+//供应商业务接口，定义供应商相关业务逻辑方法
 package com.example.demo.service;
 
 import com.example.demo.entity.Supplier;

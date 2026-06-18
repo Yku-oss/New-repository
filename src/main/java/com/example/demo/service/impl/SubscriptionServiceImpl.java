@@ -1,3 +1,4 @@
+//订阅业务实现类，实现订阅、续订、取消等业务逻辑
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.InventoryLog;

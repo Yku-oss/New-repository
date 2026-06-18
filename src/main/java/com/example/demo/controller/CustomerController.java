@@ -1,3 +1,4 @@
+//客户管理控制器，处理客户相关的HTTP请求（增删改查、登录等）
 package com.example.demo.controller;
 
 import com.example.demo.entity.Customer;

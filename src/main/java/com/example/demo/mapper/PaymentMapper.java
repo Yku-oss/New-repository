@@ -1,3 +1,4 @@
+//付款数据访问接口，定义付款表的数据库操作
 package com.example.demo.mapper;
 
 import com.example.demo.entity.Payment;

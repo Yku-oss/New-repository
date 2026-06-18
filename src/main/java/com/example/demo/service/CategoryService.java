@@ -1,3 +1,4 @@
+//分类业务接口，定义分类相关业务逻辑方法
 package com.example.demo.service;
 
 import com.example.demo.entity.Category;

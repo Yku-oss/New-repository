@@ -1,3 +1,4 @@
+//客户业务实现类，实现客户增删改查及登录等业务逻辑
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Customer;

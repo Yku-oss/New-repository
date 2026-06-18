@@ -1,3 +1,4 @@
+//库存日志业务实现类，实现库存变动记录等业务逻辑
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.InventoryLog;

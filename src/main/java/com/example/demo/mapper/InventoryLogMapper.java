@@ -1,3 +1,4 @@
+//库存日志数据访问接口，定义库存日志表的数据库操作
 package com.example.demo.mapper;
 
 import com.example.demo.entity.InventoryLog;

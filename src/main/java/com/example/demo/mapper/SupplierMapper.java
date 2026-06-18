@@ -1,3 +1,4 @@
+//供应商数据访问接口，定义供应商表的数据库操作
 package com.example.demo.mapper;
 
 import com.example.demo.entity.Supplier;

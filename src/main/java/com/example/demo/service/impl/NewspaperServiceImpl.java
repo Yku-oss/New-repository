@@ -1,3 +1,4 @@
+//报纸业务实现类，实现报纸增删改查及库存管理等业务逻辑
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.InventoryLog;

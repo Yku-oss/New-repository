@@ -1,3 +1,4 @@
+//报纸业务接口，定义报纸相关业务逻辑方法
 package com.example.demo.service;
 
 import com.example.demo.entity.Newspaper;
