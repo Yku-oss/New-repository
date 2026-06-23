@@ -5,6 +5,8 @@ import com.example.demo.entity.InventoryLog;
 import com.example.demo.entity.Newspaper;
 import com.example.demo.mapper.InventoryLogMapper;
 import com.example.demo.mapper.NewspaperMapper;
+import com.example.demo.mapper.PaymentMapper;
+import com.example.demo.mapper.SubscriptionMapper;
 import com.example.demo.service.NewspaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,12 @@ public class NewspaperServiceImpl implements NewspaperService {
 
     @Autowired
     private InventoryLogMapper inventoryLogMapper;
+
+    @Autowired
+    private PaymentMapper paymentMapper;
+
+    @Autowired
+    private SubscriptionMapper subscriptionMapper;
     
     @Override
     public List<Newspaper> getAll() {
@@ -80,6 +88,10 @@ public class NewspaperServiceImpl implements NewspaperService {
     
     @Override
     public int delete(Integer id) {
+        // 先删除关联记录，避免外键约束
+        paymentMapper.deleteByNewspaperId(id);   // 删除关联的支付记录
+        subscriptionMapper.deleteByNewspaperId(id); // 删除关联的订阅
+        inventoryLogMapper.deleteByNewspaperId(id); // 删除关联的库存日志
         return newspaperMapper.deleteById(id);
     }
 }

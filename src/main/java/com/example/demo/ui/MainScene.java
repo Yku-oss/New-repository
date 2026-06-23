@@ -34,12 +34,31 @@ public class MainScene {
 
     // 导航按钮
     private Button activeNavBtn = null;
+    private Button[] sidebarButtons;
 
     public MainScene(Stage stage, Customer currentUser) {
         this.currentUser = currentUser;
 
         // 初始化所有视图
-        this.dashboardView = new DashboardView();
+        this.dashboardView = new DashboardView(viewId -> {
+            // 查找侧边栏中对应的导航按钮并切换
+            for (Button btn : sidebarButtons) {
+                String text = btn.getText();
+                String id = text.contains("首页") ? "dashboard" :
+                            text.contains("报纸") ? "newspaper" :
+                            text.contains("客户") ? "customer" :
+                            text.contains("分类") ? "category" :
+                            text.contains("供应商") ? "supplier" :
+                            text.contains("订阅") ? "subscription" :
+                            text.contains("付款") ? "payment" :
+                            text.contains("库存") ? "inventory" :
+                            text.contains("分析") ? "analysis" : "";
+                if (id.equals(viewId)) {
+                    switchView(btn, viewId);
+                    return;
+                }
+            }
+        });
         this.newspaperView = new NewspaperTableView();
         this.customerView = new CustomerTableView();
         this.categoryView = new CategoryTableView();
@@ -66,27 +85,47 @@ public class MainScene {
         root.setTop(topBar);
 
         this.scene = new Scene(root, 1200, 800);
+        this.scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
     }
 
     private HBox createTopBar(Stage stage) {
         HBox bar = new HBox();
         bar.setAlignment(Pos.CENTER_RIGHT);
-        bar.setPadding(new Insets(10, 20, 10, 20));
-        bar.setStyle("-fx-background-color: #2c3e50;");
+        bar.setPadding(new Insets(12, 25, 12, 25));
+        bar.setStyle("-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #2c3e50, #3d566e); " +
+                     "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0, 0, 3);");
 
         Label title = new Label("📰 邮局订报管理系统");
-        title.setFont(Font.font("Microsoft YaHei", FontWeight.BOLD, 16));
+        title.setFont(Font.font("Microsoft YaHei", FontWeight.BOLD, 17));
         title.setTextFill(Color.WHITE);
         title.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(title, Priority.ALWAYS);
 
-        Label userLabel = new Label("👤 " + currentUser.getName() + " (" + currentUser.getRole() + ")");
-        userLabel.setTextFill(Color.WHITE);
-        userLabel.setFont(Font.font("Microsoft YaHei", 13));
-        HBox.setMargin(userLabel, new Insets(0, 15, 0, 0));
+        // 用户头像样式
+        Label avatarLabel = new Label("👤");
+        avatarLabel.setStyle("-fx-font-size: 18; -fx-padding: 0 5 0 0;");
 
-        Button logoutBtn = new Button("退出");
-        logoutBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 4; -fx-cursor: hand;");
+        Label userLabel = new Label(currentUser.getName() + " (" + currentUser.getRole() + ")");
+        userLabel.setTextFill(Color.web("#ecf0f1"));
+        userLabel.setFont(Font.font("Microsoft YaHei", 13));
+
+        HBox userInfo = new HBox(5, avatarLabel, userLabel);
+        userInfo.setAlignment(Pos.CENTER_RIGHT);
+        userInfo.setStyle("-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 5 15;");
+        HBox.setMargin(userInfo, new Insets(0, 15, 0, 0));
+
+        Button logoutBtn = new Button("退出登录");
+        logoutBtn.setStyle("-fx-background-color: rgba(231,76,60,0.8); -fx-text-fill: white; -fx-background-radius: 15; " +
+                          "-fx-cursor: hand; -fx-font-size: 12; -fx-padding: 6 16; " +
+                          "-fx-effect: dropshadow(gaussian, rgba(231,76,60,0.3), 6, 0, 0, 2);");
+        logoutBtn.setOnMouseEntered(e -> logoutBtn.setStyle(
+            "-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 15; " +
+            "-fx-cursor: hand; -fx-font-size: 12; -fx-padding: 6 16; " +
+            "-fx-effect: dropshadow(gaussian, rgba(231,76,60,0.5), 10, 0, 0, 4);"));
+        logoutBtn.setOnMouseExited(e -> logoutBtn.setStyle(
+            "-fx-background-color: rgba(231,76,60,0.8); -fx-text-fill: white; -fx-background-radius: 15; " +
+            "-fx-cursor: hand; -fx-font-size: 12; -fx-padding: 6 16; " +
+            "-fx-effect: dropshadow(gaussian, rgba(231,76,60,0.3), 6, 0, 0, 2);"));
         logoutBtn.setOnAction(e -> {
             LoginView loginView = new LoginView(stage);
             Scene loginScene = new Scene(loginView, 420, 520);
@@ -97,25 +136,37 @@ public class MainScene {
             stage.sizeToScene();
         });
 
-        bar.getChildren().addAll(title, userLabel, logoutBtn);
+        bar.getChildren().addAll(title, userInfo, logoutBtn);
         return bar;
     }
 
     private VBox createSidebar() {
         VBox sidebar = new VBox(2);
-        sidebar.setPrefWidth(200);
-        sidebar.setMinWidth(200);
-        sidebar.setPadding(new Insets(10, 0, 10, 0));
-        sidebar.setStyle("-fx-background-color: #34495e;");
+        sidebar.setPrefWidth(220);
+        sidebar.setMinWidth(220);
+        sidebar.setPadding(new Insets(15, 0, 15, 0));
+        sidebar.setStyle("-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #2c3e50, #34495e); " +
+                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, 0);");
+
+        // 侧边栏顶部 Logo 区域
+        VBox logoArea = new VBox(5);
+        logoArea.setAlignment(Pos.CENTER);
+        logoArea.setPadding(new Insets(0, 15, 20, 15));
+        logoArea.setStyle("-fx-border-color: rgba(255,255,255,0.1); -fx-border-width: 0 0 1 0;");
+
+        Label logoIcon = new Label("📰");
+        logoIcon.setStyle("-fx-font-size: 32;");
 
         Label navTitle = new Label("功能导航");
-        navTitle.setFont(Font.font("Microsoft YaHei", FontWeight.BOLD, 14));
-        navTitle.setTextFill(Color.web("#bdc3c7"));
-        navTitle.setPadding(new Insets(10, 15, 15, 15));
+        navTitle.setFont(Font.font("Microsoft YaHei", FontWeight.BOLD, 13));
+        navTitle.setTextFill(Color.web("#8e99a4"));
+        navTitle.setPadding(new Insets(15, 15, 10, 15));
+
+        logoArea.getChildren().addAll(logoIcon);
+        sidebar.getChildren().addAll(logoArea, navTitle);
 
         // 导航按钮定义
         Button[] navButtons = createNavButtons();
-        sidebar.getChildren().add(navTitle);
         sidebar.getChildren().addAll(navButtons);
 
         // 弹性空间
@@ -145,25 +196,28 @@ public class MainScene {
             Button btn = new Button(navItems[i][0]);
             btn.setMaxWidth(Double.MAX_VALUE);
             btn.setAlignment(Pos.CENTER_LEFT);
-            btn.setPadding(new Insets(12, 15, 12, 15));
-            btn.setStyle("-fx-background-color: transparent; -fx-text-fill: #ecf0f1; " +
-                        "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none;");
+            btn.setPadding(new Insets(12, 18, 12, 18));
+            btn.setStyle("-fx-background-color: transparent; -fx-text-fill: #bdc3c7; " +
+                        "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none; " +
+                        "-fx-background-radius: 8; -fx-margin: 0 8;");
             btn.setFont(Font.font("Microsoft YaHei", 13));
 
             String viewId = navItems[i][1];
             btn.setOnAction(e -> switchView(btn, viewId));
 
-            // 悬停效果
+            // 悬停效果 - 更平滑
             btn.setOnMouseEntered(e -> {
                 if (btn != activeNavBtn) {
-                    btn.setStyle("-fx-background-color: #3d566e; -fx-text-fill: white; " +
-                                "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none;");
+                    btn.setStyle("-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: white; " +
+                                "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none; " +
+                                "-fx-background-radius: 8;");
                 }
             });
             btn.setOnMouseExited(e -> {
                 if (btn != activeNavBtn) {
-                    btn.setStyle("-fx-background-color: transparent; -fx-text-fill: #ecf0f1; " +
-                                "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none;");
+                    btn.setStyle("-fx-background-color: transparent; -fx-text-fill: #bdc3c7; " +
+                                "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none; " +
+                                "-fx-background-radius: 8;");
                 }
             });
 
@@ -173,17 +227,22 @@ public class MainScene {
         // 默认选中第一个
         setActive(buttons[0]);
 
+        this.sidebarButtons = buttons;
         return buttons;
     }
 
     private void setActive(Button btn) {
         if (activeNavBtn != null) {
-            activeNavBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #ecf0f1; " +
-                                "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none;");
+            activeNavBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #bdc3c7; " +
+                                "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none; " +
+                                "-fx-background-radius: 8;");
         }
         activeNavBtn = btn;
-        activeNavBtn.setStyle("-fx-background-color: #2c3e50; -fx-text-fill: white; " +
-                            "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none; -fx-border-width: 0 0 0 3; -fx-border-color: #3498db;");
+        activeNavBtn.setStyle("-fx-background-color: rgba(52,152,219,0.2); -fx-text-fill: white; " +
+                            "-fx-font-size: 13; -fx-cursor: hand; -fx-border: none; " +
+                            "-fx-background-radius: 8; " +
+                            "-fx-border-width: 0 0 0 3; -fx-border-color: #3498db; " +
+                            "-fx-effect: dropshadow(gaussian, rgba(52,152,219,0.1), 4, 0, 0, 0);");
     }
 
     private void switchView(Button btn, String viewId) {

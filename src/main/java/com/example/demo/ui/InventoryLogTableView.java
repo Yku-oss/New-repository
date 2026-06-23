@@ -34,7 +34,7 @@ public class InventoryLogTableView extends VBox {
 
         HBox toolbar = new HBox(10);
         Button refreshBtn = new Button("🔄 刷新");
-        refreshBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
+        refreshBtn.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13; -fx-padding: 8 16;");
         toolbar.getChildren().addAll(refreshBtn);
 
         TableColumn<InventoryLog, Integer> idCol = new TableColumn<>("ID");

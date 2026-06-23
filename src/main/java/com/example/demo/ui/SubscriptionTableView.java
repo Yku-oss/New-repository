@@ -39,8 +39,8 @@ public class SubscriptionTableView extends VBox {
         HBox toolbar = new HBox(10);
         Button addBtn = new Button("➕ 新增订阅");
         Button refreshBtn = new Button("🔄 刷新");
-        addBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
-        refreshBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
+        addBtn.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13; -fx-padding: 8 16;");
+        refreshBtn.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13; -fx-padding: 8 16;");
         toolbar.getChildren().addAll(addBtn, refreshBtn);
 
         TableColumn<Subscription, Integer> idCol = new TableColumn<>("ID");
@@ -90,16 +90,16 @@ public class SubscriptionTableView extends VBox {
         statusCol.setPrefWidth(80);
 
         TableColumn<Subscription, Void> actionCol = new TableColumn<>("操作");
-        actionCol.setPrefWidth(220);
+        actionCol.setPrefWidth(260);
         actionCol.setCellFactory(col -> new TableCell<>() {
-            private final Button approveBtn = new Button("审批通过");
+            private final Button approveBtn = new Button("审批");
             private final Button rejectBtn = new Button("驳回");
             private final Button delBtn = new Button("删除");
-            private final HBox pane = new HBox(5, approveBtn, rejectBtn, delBtn);
+            private final HBox pane = new HBox(4, approveBtn, rejectBtn, delBtn);
             { pane.setAlignment(Pos.CENTER);
-              approveBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-cursor: hand;");
-              rejectBtn.setStyle("-fx-background-color: #e67e22; -fx-text-fill: white; -fx-cursor: hand;");
-              delBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-cursor: hand;"); }
+              approveBtn.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 11; -fx-padding: 3 8; -fx-background-radius: 3;");
+              rejectBtn.setStyle("-fx-background-color: #d35400; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 11; -fx-padding: 3 8; -fx-background-radius: 3;");
+              delBtn.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 11; -fx-padding: 3 8; -fx-background-radius: 3;"); }
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
@@ -196,7 +196,9 @@ public class SubscriptionTableView extends VBox {
 
         VBox root = new VBox(10, form, new HBox(10, saveBtn, cancelBtn));
         root.setPadding(new Insets(10));
-        dialog.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        dialog.setScene(scene);
         dialog.showAndWait();
     }
 }

@@ -40,6 +40,9 @@ public interface SubscriptionMapper {
     @Delete("DELETE FROM subscription WHERE id = #{id}")
     int deleteById(@Param("id") Integer id);
 
+    @Delete("DELETE FROM subscription WHERE newspaper_id = #{newspaperId}")
+    int deleteByNewspaperId(@Param("newspaperId") Integer newspaperId);
+
     // ===== 统计分析 =====
     @Select("SELECT n.name AS newspaperName, COUNT(s.id) AS subscriptionCount, SUM(s.total_price) AS totalRevenue " +
             "FROM subscription s JOIN newspaper n ON s.newspaper_id = n.id " +

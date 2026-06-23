@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+// 这个是spring专门处理HTTP请求的注释，告诉spring处理然后以json的形式返回
 @RestController
 @RequestMapping("/api/analysis")
 public class AnalysisController {
 
+    // 这个是自动匹配接口的注释
+    // 用于自动将spring的bean注入相匹配的接口中
     @Autowired
     private AnalysisService analysisService;
 
@@ -20,6 +23,9 @@ public class AnalysisController {
         return analysisService.getSubscriptionStats();
     }
 
+    // Getmaping是处理URL GET的请求的一个方法
+    // 当访问某一个路径中含有括号里面的关键词时，就调用这个方法
+    // 返回值自动转json。
     @GetMapping("/customer-behavior")
     public List<Map<String, Object>> getCustomerBehavior() {
         return analysisService.getCustomerBehaviorAnalysis();

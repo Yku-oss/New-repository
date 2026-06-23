@@ -42,8 +42,8 @@ public class NewspaperTableView extends VBox {
 
         Button addBtn = new Button("➕ 新增报纸");
         Button refreshBtn = new Button("🔄 刷新");
-        addBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
-        refreshBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
+        addBtn.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13; -fx-padding: 8 16;");
+        refreshBtn.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13; -fx-padding: 8 16;");
 
         toolbar.getChildren().addAll(addBtn, refreshBtn);
 
@@ -99,16 +99,16 @@ public class NewspaperTableView extends VBox {
         descCol.setPrefWidth(200);
 
         TableColumn<Newspaper, Void> actionCol = new TableColumn<>("操作");
-        actionCol.setPrefWidth(150);
+        actionCol.setPrefWidth(160);
         actionCol.setCellFactory(col -> new TableCell<>() {
             private final Button editBtn = new Button("编辑");
             private final Button delBtn = new Button("删除");
-            private final HBox pane = new HBox(5, editBtn, delBtn);
+            private final HBox pane = new HBox(4, editBtn, delBtn);
 
             {
                 pane.setAlignment(Pos.CENTER);
-                editBtn.setStyle("-fx-background-color: #f39c12; -fx-text-fill: white; -fx-cursor: hand;");
-                delBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-cursor: hand;");
+                editBtn.setStyle("-fx-background-color: #d48806; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 11; -fx-padding: 3 10; -fx-background-radius: 3;");
+                delBtn.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 11; -fx-padding: 3 10; -fx-background-radius: 3;");
             }
 
             @Override
@@ -203,8 +203,8 @@ public class NewspaperTableView extends VBox {
         form.add(new Label("描述:"), 0, 7);
         form.add(descArea, 1, 7);
 
-        Button saveBtn = new Button("保存");
-        saveBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-cursor: hand;");
+        Button saveBtn = new Button("💾 保存");
+        saveBtn.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 5; -fx-font-size: 13;");
         saveBtn.setOnAction(e -> {
             try {
                 Newspaper n = isNew ? new Newspaper() : newspaper;
@@ -231,8 +231,8 @@ public class NewspaperTableView extends VBox {
             }
         });
 
-        Button cancelBtn = new Button("取消");
-        cancelBtn.setStyle("-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-cursor: hand;");
+        Button cancelBtn = new Button("✖ 取消");
+        cancelBtn.setStyle("-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 6; -fx-font-size: 14;");
         cancelBtn.setOnAction(e -> dialog.close());
 
         HBox buttons = new HBox(10, saveBtn, cancelBtn);
@@ -242,6 +242,7 @@ public class NewspaperTableView extends VBox {
         root.setPadding(new Insets(10));
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         dialog.setScene(scene);
         dialog.showAndWait();
     }

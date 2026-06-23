@@ -18,4 +18,7 @@ public interface InventoryLogMapper {
             "VALUES (#{newspaperId}, #{changeQuantity}, #{type}, #{remark})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(InventoryLog inventoryLog);
+
+    @Delete("DELETE FROM inventory_log WHERE newspaper_id = #{newspaperId}")
+    int deleteByNewspaperId(@Param("newspaperId") Integer newspaperId);
 }

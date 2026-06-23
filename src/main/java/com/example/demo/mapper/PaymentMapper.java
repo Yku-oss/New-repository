@@ -14,6 +14,9 @@ public interface PaymentMapper {
     @Select("SELECT * FROM payment WHERE id = #{id}")
     Payment findById(@Param("id") Integer id);
     
+    @Delete("DELETE FROM payment WHERE subscription_id IN (SELECT id FROM subscription WHERE newspaper_id = #{newspaperId})")
+    int deleteByNewspaperId(@Param("newspaperId") Integer newspaperId);
+
     @Select("SELECT * FROM payment WHERE subscription_id = #{subscriptionId}")
     Payment findBySubscriptionId(@Param("subscriptionId") Integer subscriptionId);
     

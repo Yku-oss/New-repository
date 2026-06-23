@@ -23,6 +23,7 @@ public class FxApplication extends Application {
         try {
             scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         } catch (Exception ignored) {}
+        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

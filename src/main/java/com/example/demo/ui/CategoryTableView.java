@@ -39,8 +39,8 @@ public class CategoryTableView extends VBox {
         HBox toolbar = new HBox(10);
         Button addBtn = new Button("➕ 新增分类");
         Button refreshBtn = new Button("🔄 刷新");
-        addBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
-        refreshBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
+        addBtn.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13; -fx-padding: 8 16;");
+        refreshBtn.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13; -fx-padding: 8 16;");
         toolbar.getChildren().addAll(addBtn, refreshBtn);
 
         TableColumn<Category, Integer> idCol = new TableColumn<>("ID");
@@ -56,14 +56,14 @@ public class CategoryTableView extends VBox {
         descCol.setPrefWidth(300);
 
         TableColumn<Category, Void> actionCol = new TableColumn<>("操作");
-        actionCol.setPrefWidth(150);
+        actionCol.setPrefWidth(160);
         actionCol.setCellFactory(col -> new TableCell<>() {
             private final Button editBtn = new Button("编辑");
             private final Button delBtn = new Button("删除");
-            private final HBox pane = new HBox(5, editBtn, delBtn);
+            private final HBox pane = new HBox(4, editBtn, delBtn);
             { pane.setAlignment(Pos.CENTER);
-              editBtn.setStyle("-fx-background-color: #f39c12; -fx-text-fill: white; -fx-cursor: hand;");
-              delBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-cursor: hand;"); }
+              editBtn.setStyle("-fx-background-color: #d48806; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 11; -fx-padding: 3 10; -fx-background-radius: 3;");
+              delBtn.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 11; -fx-padding: 3 10; -fx-background-radius: 3;"); }
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
@@ -126,7 +126,9 @@ public class CategoryTableView extends VBox {
 
         VBox root = new VBox(10, form, new HBox(10, saveBtn, cancelBtn));
         root.setPadding(new Insets(10));
-        dialog.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        dialog.setScene(scene);
         dialog.showAndWait();
     }
 }

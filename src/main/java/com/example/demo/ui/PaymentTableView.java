@@ -35,9 +35,9 @@ public class PaymentTableView extends VBox {
 
         HBox toolbar = new HBox(10);
         Button refreshBtn = new Button("🔄 刷新");
-        refreshBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
+        refreshBtn.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13; -fx-padding: 8 16;");
         Button addBtn = new Button("➕ 新增付款");
-        addBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
+        addBtn.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13; -fx-padding: 8 16;");
         toolbar.getChildren().addAll(refreshBtn, addBtn);
 
         TableColumn<Payment, Integer> idCol = new TableColumn<>("ID");
@@ -116,7 +116,9 @@ public class PaymentTableView extends VBox {
 
         VBox root = new VBox(10, form, new HBox(10, saveBtn, cancelBtn));
         root.setPadding(new Insets(10));
-        dialog.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        dialog.setScene(scene);
         dialog.showAndWait();
     }
 }

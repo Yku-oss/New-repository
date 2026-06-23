@@ -19,44 +19,49 @@ public class LoginView extends VBox {
     public LoginView(Stage primaryStage) {
         this.primaryStage = primaryStage;
         setAlignment(Pos.CENTER);
-        setSpacing(15);
-        setPadding(new Insets(40));
-        setStyle("-fx-background: linear-gradient(from 0% 0% to 0% 100%, #667eea 0%, #764ba2 100%);");
+        setSpacing(20);
+        setPadding(new Insets(50));
+        setStyle("-fx-background: linear-gradient(from 0% 0% to 100% 100%, #667eea 0%, #764ba2 100%);");
 
         // 标题
         Label titleLabel = new Label("📰 邮局订报管理系统");
-        titleLabel.setFont(Font.font("Microsoft YaHei", FontWeight.BOLD, 26));
-        titleLabel.setStyle("-fx-text-fill: white;");
-        VBox.setMargin(titleLabel, new Insets(0, 0, 30, 0));
+        titleLabel.setFont(Font.font("Microsoft YaHei", FontWeight.BOLD, 28));
+        titleLabel.setStyle("-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);");
+        VBox.setMargin(titleLabel, new Insets(0, 0, 25, 0));
 
         // 登录卡片
         VBox card = new VBox(15);
         card.setAlignment(Pos.CENTER);
-        card.setPadding(new Insets(30));
-        card.setStyle("-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 10);");
-        card.setMaxWidth(340);
-        card.setPrefWidth(340);
+        card.setPadding(new Insets(35, 30, 30, 30));
+        card.setStyle("-fx-background-color: white; -fx-background-radius: 16; " +
+                      "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 30, 0, 0, 15);");
+        card.setMaxWidth(360);
+        card.setPrefWidth(360);
 
         Label loginTitle = new Label("用户登录");
-        loginTitle.setFont(Font.font("Microsoft YaHei", FontWeight.BOLD, 18));
-        loginTitle.setStyle("-fx-text-fill: #333;");
+        loginTitle.setFont(Font.font("Microsoft YaHei", FontWeight.BOLD, 20));
+        loginTitle.setStyle("-fx-text-fill: #1a1a2e;");
 
+        // 邮箱输入框
         TextField emailField = new TextField();
         emailField.setPromptText("邮箱 (如: admin@post.com)");
-        emailField.setStyle("-fx-padding: 10; -fx-font-size: 14; -fx-background-radius: 6; -fx-border-color: #ddd; -fx-border-radius: 6;");
+        emailField.setPrefHeight(42);
 
+        // 密码输入框
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("密码 (默认: 123456)");
-        passwordField.setStyle("-fx-padding: 10; -fx-font-size: 14; -fx-background-radius: 6; -fx-border-color: #ddd; -fx-border-radius: 6;");
+        passwordField.setPrefHeight(42);
 
         Label messageLabel = new Label();
-        messageLabel.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+        messageLabel.setStyle("-fx-text-fill: #e74c3c; -fx-font-size: 13; -fx-font-weight: bold;");
 
         Button loginBtn = new Button("登  录");
-        loginBtn.setPrefHeight(40);
-        loginBtn.setStyle("-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-size: 15; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;");
-        loginBtn.setOnMouseEntered(e -> loginBtn.setStyle("-fx-background-color: #5a6fd6; -fx-text-fill: white; -fx-font-size: 15; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;"));
-        loginBtn.setOnMouseExited(e -> loginBtn.setStyle("-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-size: 15; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;"));
+        loginBtn.setPrefHeight(44);
+        loginBtn.setPrefWidth(200);
+        loginBtn.setStyle("-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #667eea, #764ba2); " +
+                          "-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; " +
+                          "-fx-background-radius: 22; -fx-cursor: hand; " +
+                          "-fx-effect: dropshadow(gaussian, rgba(102,126,234,0.4), 10, 0, 0, 4);");
 
         // 默认填充管理员账号
         emailField.setText("admin@post.com");
