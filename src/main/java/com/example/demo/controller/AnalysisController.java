@@ -1,6 +1,7 @@
 //数据分析控制器，提供销售统计、报表分析等数据接口
 package com.example.demo.controller;
 
+// 导入类的方法，要求方法与类名一致。
 import com.example.demo.service.AnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
