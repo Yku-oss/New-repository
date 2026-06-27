@@ -19,6 +19,8 @@ public class AnalysisController {
     @Autowired
     private AnalysisService analysisService;
 
+    // 这是一个处理HTTP的GET请求注释，匹配HTTP路径中的变量,然后根据
+    // GET 请求查询内容，调用server的方法，然后自动转化为json
     @GetMapping("/subscription-stats")
     public List<Map<String, Object>> getSubscriptionStats() {
         return analysisService.getSubscriptionStats();

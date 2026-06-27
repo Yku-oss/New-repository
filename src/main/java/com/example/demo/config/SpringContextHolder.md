@@ -13,15 +13,21 @@ import org.springframework.stereotype.Component;
 
 ## 相关知识解释
 ````
-@Component ：这是注解，是spring的一个包，作用是向 Spring IoC 容器声明，启动spring时自动创建，需要管理。
-@Override ：是java语法，声明这是一个重构或者父亲类
-@Autowired 是 Spring 的依赖注入注解，用于将 Spring 容器中已经创建好的 Bean（对象）自动赋值给当前类的属性。
-@Repository 就是像spring声明这是项目中的mapper，是数据访问层。
-ApplicationContextAware ：这是一个感应spring的接口，向后续getbean传递信息。
-ApplicationContext ：这是spring中的顶层接口，负责管理bean。
-setApplicationContext ：这是一个接受和保存spring的一个方法，将方法存在端口中，通常只执行一次
-getBean：是一个将bean从spring中取出的方法，他能被其他类随时调用。
+@Component ：这是注解，是spring的一个包，作用是向 Spring IoC 容器声明，启动spring时自动创建，需要spring自动管理。
 
+@Override ：是java语法，声明这是一个重构或者父亲类
+
+@Autowired 是 Spring 的依赖注入注解，用于将 Spring 容器中已经创建好的 Bean（对象）自动赋值给当前类的属性。
+
+@Repository 就是像spring声明这是项目中的mapper，是数据访问层。
+
+ApplicationContextAware ：这是一个感应spring的接口，向后续getbean传递信息。
+
+ApplicationContext ：这是spring中的顶层接口，负责管理bean。
+
+setApplicationContext ：这是一个接受和保存spring的一个方法，将方法存在端口中，通常只执行一次
+
+getBean：是一个将bean从spring中取出的方法，他能被其他类随时调用。
 ````
 
 ## 流程图

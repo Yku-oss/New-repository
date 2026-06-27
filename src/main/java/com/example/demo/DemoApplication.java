@@ -2,8 +2,8 @@
 package com.example.demo;
 
 //引入javafx的包
-import com.example.demo.ui.FxApplication; // javafx的启动项
-import javafx.application.Application; // 其他类也要继承javafx的启动
+import com.example.demo.ui.FxApplication; // 引入javafx的启动项类
+import javafx.application.Application; // 再引入javafx的包让其他类也要继承javafx的启动
 // 引入spring的包
 import org.springframework.boot.SpringApplication; //spring的启动项
 import org.springframework.boot.autoconfigure.SpringBootApplication; // 其他类也要继承spring的启动
@@ -23,9 +23,11 @@ public class DemoApplication {
 		context = SpringApplication.run(DemoApplication.class, args);
 		// 再启动 JavaFX 桌面界面（在独立线程中，因为 Application.launch 会阻塞）
 		//创建一个线程来让javafx启动
+		//() -> 是lamba表达式，匿名创建一个方法，让其更简洁
+		// launch（）是一个Javafx启动方法
 		new Thread(() -> Application.launch(FxApplication.class, args)).start();
 	}
-	// 创建一个类让别的类都能从里面取出对象
+	// 创建一个方法让别的类都能从里面取出对象
 	public static ConfigurableApplicationContext getContext() {
 		return context;
 	}

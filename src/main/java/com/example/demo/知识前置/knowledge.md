@@ -30,7 +30,7 @@ Controller → Service → Mapper → Database
 - `@Mapper`：标记为 MyBatis 接口
 
 ### MyBatis 注解
-- `@Select("SQL")`：查询
+-  `@Select("SQL")`：查询
 - `@Insert("SQL")`：插入
 - `@Update("SQL")`：更新
 - `@Delete("SQL")`：删除
@@ -85,4 +85,28 @@ git status	查看改动
 git add .	添加所有改动
 git commit -m "说明"	提交到本地
 git push	推送到 GitHub
+```
+
+## 7.URL 和 HTTP 的命令分类
+```
+@RequestMapping("/api/users")	匹配 URL 路径	   URL 处理
+
+@GetMapping         匹配 HTTP 方法（GET/POST）     HTTP 处理
+
+@PostMapping	    匹配 HTTP 方法（GET/POST）	   HTTP 处理
+
+@PathVariable       从 URL 里取参数（路径中的变量）  URL 处理
+
+@RequestParam       从 URL 问号后面取参数（?id=1）  URL 处理
+
+@RequestBody        从 HTTP 请求体里取数据（JSON）  HTTP 处理
+
+@RequestHeader      从 HTTP 请求头里取数据	       HTTP 处理
+```
+## 8. URL 和 HTTP 的区别
+```
+URL	    资源的位置（地址）	        快递上的收货地址
+HTTP	传输的规则（方法 + 协议）	快递公司的服务类型（普通/加急/货到付款）
+
+URL 告诉你去哪找东西，HTTP 告诉你用什么方式操作那个东西。
 ```
