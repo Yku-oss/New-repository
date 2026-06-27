@@ -19,6 +19,7 @@ Controller → Service → Mapper → Database
 - `@PathVariable`：从 URL 路径取值，如 `/api/1` 取到 1
 - `@RequestBody`：从请求体取 JSON，转成 Java 对象
 
+
 ### 依赖注入
 - `@Autowired`：让 Spring 自动注入依赖的对象
 

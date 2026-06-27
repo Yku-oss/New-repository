@@ -1,13 +1,13 @@
 package com.example.demo.ui;
 
+import com.example.demo.DemoApplication;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.springframework.context.ConfigurableApplicationContext;
 
-/**
- * JavaFX 入口 - 由 DemoApplication 启动
- */
 public class FxApplication extends Application {
 
     @Override
@@ -17,7 +17,6 @@ public class FxApplication extends Application {
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
         } catch (Exception ignored) {}
 
-        // 先显示登录界面
         LoginView loginView = new LoginView(primaryStage);
         Scene scene = new Scene(loginView, 420, 520);
         try {
@@ -25,8 +24,27 @@ public class FxApplication extends Application {
         } catch (Exception ignored) {}
         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 
+        // 窗口关闭时自动停止 Spring Boot
+        primaryStage.setOnCloseRequest(event -> {
+            stopSpringBoot();
+            Platform.exit();
+        });
+
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+    }
+
+    @Override
+    public void stop() {
+        stopSpringBoot();
+    }
+
+    private void stopSpringBoot() {
+        ConfigurableApplicationContext ctx = DemoApplication.getContext();
+        if (ctx != null && ctx.isActive()) {
+            System.out.println("正在关闭 Spring Boot...");
+            ctx.close();
+        }
     }
 }
