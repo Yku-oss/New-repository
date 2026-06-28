@@ -11,8 +11,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class dpcation {
     private static ConfigurableApplicationContext ct;
     public static void main(String[] args) {
-        ct = SpringApplication.run(dpcation.class, args);
-        new Thread(() -> Application.launch(FxApplication.class,args)).start();
+         ct = SpringApplication.run(dpcation.class, args);
+         new Thread(() -> Application.launch(FxApplication.class,args)).start();
     }
 
     public static ConfigurableApplicationContext getct(){

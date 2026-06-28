@@ -26,7 +26,7 @@ public class AnalysisController {
         return analysisService.getSubscriptionStats();
     }
 
-    // Getmaping是处理URL GET的请求的一个方法
+    // Getmaping是处理HTTP GET的请求的一个方法
     // 当访问某一个路径中含有括号里面的关键词时，就调用这个方法
     // 返回值自动转json。
     @GetMapping("/customer-behavior")
@@ -34,11 +34,12 @@ public class AnalysisController {
         return analysisService.getCustomerBehaviorAnalysis();
     }
 
+    // 寻找存货周转列表
     @GetMapping("/inventory-turnover")
     public List<Map<String, Object>> getInventoryTurnover() {
         return analysisService.getInventoryTurnoverStats();
     }
-
+    // 业务报表
     @GetMapping("/business-report")
     public Map<String, Object> getBusinessReport() {
         return analysisService.getBusinessReport();
