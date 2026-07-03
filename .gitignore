@@ -1,0 +1,30 @@
+# VS Code
+.vscode/
+
+# Python 虚拟环境（很大，不要上传）
+pypthon/.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Java 编译输出
+*.class
+
+# C/C++ 编译输出
+*.exe
+*.o
+
+# Maven 构建输出
+demo/target/
+demo/.mvn/wrapper/maven-wrapper.jar
+demo/HELP.md
+
+# CPH 插件缓存
+.cph/
+
+# Node.js
+quartz/node_modules/
+quartz/quartz/util/emojimap.json
+
+# 系统文件
+*.docx
