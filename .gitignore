@@ -26,5 +26,10 @@ demo/HELP.md
 quartz/node_modules/
 quartz/quartz/util/emojimap.json
 
+# 不上传的文件夹
+作业/
+模板/
+pypthon/
+
 # 系统文件
 *.docx
