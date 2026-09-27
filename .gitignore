@@ -19,6 +19,60 @@ demo/target/
 demo/.mvn/wrapper/maven-wrapper.jar
 demo/HELP.md
 
+# Maven 构建输出（补全：覆盖所有项目，不只 demo）
+*/target/
+target/
+
+# 日志文件（调试产生的，不上传）
+*.log
+
+# IDE（IntelliJ）
+.idea/
+*.iml
+
+# Docker 构建上下文无关文件
+*.jar
+# Maven 构建输出（补全：不只 demo）
+*/target/
+target/
+
+# 日志文件
+*.log
+
+# ============ 编辑器 / IDE ============
+.cph/
+*.code-workspace
+
+# ============ 个人隐私（不上传）============
+肖贤灿简历*.md
+jdk-env-backup.txt
+
+# ============ 临时 / 垃圾文件 ============
+temp_*.md
+temp_*.py
+temp_*.txt
+add_color.py
+test.cpp
+Untitled-*.cpp
+Untitled-*.txt
+Test.java
+
+# ============ 大体积 / 无关目录 ============
+作业/
+模板/
+.qoder/
+.python-version
+
+# Java 入门小游戏作业（与后端方向无关）
+java/AdventureGame.java
+java/Gomoku.java
+java/GuessNumberGame.java
+java/SwitchExample.java
+
+# IDE
+.idea/
+*.iml
+
 # CPH 插件缓存
 .cph/
 

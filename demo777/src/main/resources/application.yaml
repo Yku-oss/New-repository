@@ -1,0 +1,35 @@
+spring :
+  datasource :
+    driver-class-name : com.mysql.cj.jdbc.Driver # 指定mysql的驱动
+    username : root # 用户名
+    password : 123456 #密码
+    url : jdbc:mysql://localhost:3306/seckill?userSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    # 路径， jdbc（java与数据库的交互接口）： mysql（连接的数据库类型）：//localhost（主机）：3306（端口号）？useSSL（使用的通道加密协议）
+    # + serverTimezone(服务器所在地址时间) & characterEncoding=UTF-8（指定编译反馈的字符是中文）& allowPublicKeyRetrieval = false/true(确定客户端是否可以获得公钥访问)
+  hikari:
+    maximum-pool-size : 20 # 最大接口池储存量
+    minimum-idle : 5  # 最小空余接口
+    connection-timeout: 30000 #最大连接时间
+    idle-timeout : 18000 #最大空闲连接时间
+    max-lifetime : 36000 # 最大生存时间
+
+
+
+
+  logging:
+    level :
+      root: info
+      level: DEBUG
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout : 3000ms
+
+mybatis :
+    mapper-location : classpath:mapper/*.xml # 指定映射的Java文件
+    type-aliases-package : org.example.demo777.entity #所连接包含数据的数据包
+    configuration: # 配置
+      map-underscore-to-camel-case : true # 上驼峰的命名方式
+      log-impl : org.apache.ibatis.logging.stdout.StdOutImpl # 日志上传

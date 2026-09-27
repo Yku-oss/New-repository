@@ -23,7 +23,7 @@ public interface workermappings {
 
     @Insert("INSERT INTO postal_staff (name, phone, email, password, position, department, status) " +
             "VALUES (#{name}, #{phone}, #{email}, #{password}, #{position}, #{department}, #{status})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Options(useGeneratedKeys = true, keyProperty = "id") //数据表中存在主键时就该用，使其自动增长id
     int insert(worker worker);
 
     @Update("UPDATE postal_staff SET name=#{name}, phone=#{phone}, email=#{email}, " +
