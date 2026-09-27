@@ -95,6 +95,13 @@ private static final String STOCK_LUA =
     "redis.call('DECRBY', KEYS[1], ARGV[1]) " +
     "return 1";
 
+    // ④ 库存回补 Lua 脚本（取消/超时订单时用）
+    // 逻辑：key 存在 → 库存 +1；key 不存在 → 什么都不做（返回 -1）
+    // 为什么加 EXISTS 判断？防止给「未预热 / key 已过期」的商品凭空造出库存
+    private static final String ADD_STOCK_LUA =
+            "if redis.call('EXISTS', KEYS[1]) == 0 then return -1 end " +
+            "return redis.call('INCR', KEYS[1])";
+
     // ③ 令牌桶限流 Lua 脚本
     // 令牌桶是让Redis给数据库DB进行兜底的，防止DB被请求流量打爆
     // 原理是线程得先取令牌，没有令牌的线程停止进行，直到令牌桶又补充有，令牌桶如果不是满的话，是按照规定时间进行补充令牌的
@@ -132,8 +139,7 @@ private static final String STOCK_LUA =
 
     // ② 方法（放在 testIncrement 下面）
 @Transactional
-public Result<?> doSeckillByRedis(Long userId, Long goodsId) {
-    // 全局限流窗口
+public Result<?> doSeckillByRedis(Long userId, Long goodsId) {    // 全局限流窗口
     Long allowed = tryTokenBucket("seckill:limit:all", 10, 5);
     if(allowed == null || allowed == 0){
         return  Result.error(429, "请求过于频繁，请稍后重试");
@@ -215,14 +221,34 @@ public Result<?> doSeckillByRedis(Long userId, Long goodsId) {
         if (rows == 0) {
             return Result.error(400, "订单不是待支付状态，无法取消");
         }
-        // 3. 取消成功 → 把库存加回去（用订单里的 goodsId）
+        // 3. 取消成功 → 把库存加回去（DB + Redis 两边都要补！）
+        //    只补 DB 不补 Redis → Redis 仍显示售罄 → 商品再也卖不出去（少卖）
         goodsMapper.addStock(order.getGoodsId());
+        addStockToRedis(order.getGoodsId());
         return Result.success("取消成功");
     }
-        // 消息队列
-        public void sendOrderMassage(String orderNo) {
+        // 消息队列（保留给 /mq/test 接口做连通性测试）
+        public void sendOrderMessage(String orderNo) {
             rabbitTemplate.convertAndSend(RabbitMQConfig.SECKILL_ORDER_QUEUE, orderNo);
         }
+
+    /**
+     * 【库存回补】取消 / 超时订单时，把 Redis 库存 +1。
+     *
+     * 为什么必须单独做这件事？
+     *   预减库存是【Redis 先扣】的。如果取消时只加 DB 库存、不管 Redis，
+     *   就会出现「Redis 显示 0（已售罄），DB 实际还有 1」—— 后续所有请求
+     *   都在 Lua 第一步就被拦下，商品再也卖不出去（少卖 bug）。
+     *
+     * 为什么不用 increment() 而用 Lua？
+     *   increment 无脑 +1，如果 key 已过期/未预热，就会【凭空造出库存】。
+     *   Lua 里先 EXISTS 判断：key 不存在就不动，保证只回补真实预减过的商品。
+     */
+    public void addStockToRedis(Long goodsId) {
+        stringRedisTemplate.execute(
+                new DefaultRedisScript<>(ADD_STOCK_LUA, Long.class),
+                List.of("seckill:stock:" + goodsId));
+    }
 
 
 }

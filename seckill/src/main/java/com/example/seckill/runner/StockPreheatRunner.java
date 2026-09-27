@@ -7,6 +7,16 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
+// 这个类的作用就是将DB里面的数据重新Redis中，更新数据，保证数据为最新
+// 需要的类 ： 商品访问类 + Redis工具 ， 后面就是将类构造器注入
+// 然后重写Redis中的原生写入接口CommandLineRunner
+// 遍历里面的商品，然后用Redis中的set中的opsForValue()方法注入
+// 所以就是预热商品
+
+
+
+
+
 @Component
 public class StockPreheatRunner implements CommandLineRunner {
 

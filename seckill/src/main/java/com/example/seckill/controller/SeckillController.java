@@ -44,7 +44,7 @@ public class SeckillController {
     // MQ 测试接口：发一条消息到队列，验证消费者是否收到
     @PostMapping("/mq/test")
     public Result<?> mqTest(@RequestParam String msg) {
-        seckillService.sendOrderMassage(msg);
+        seckillService.sendOrderMessage(msg);
         return Result.success("消息已发送: " + msg);
     }
 
