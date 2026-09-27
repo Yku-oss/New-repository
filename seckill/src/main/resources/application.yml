@@ -46,3 +46,6 @@ logging:
 seckill:
   mq:
     fail-test: false    # 打开：消费者故意抛异常（验证死信）；关闭：正常
+  limit:
+    capacity: 10        # 令牌桶容量（压测时可临时调大，如 100000）
+    rate: 5             # 令牌补充速率（个/秒）

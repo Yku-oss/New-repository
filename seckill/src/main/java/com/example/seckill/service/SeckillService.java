@@ -8,6 +8,7 @@ import com.example.seckill.config.OrderTimeoutMQConfig;
 import com.example.seckill.config.RabbitMQConfig;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,16 @@ public class SeckillService {
     private final SeckillGoodsMapper goodsMapper;
     private final SeckillOrderMapper orderMapper;
     private final StringRedisTemplate stringRedisTemplate;
+
+    // ===== 限流参数（从 application.yml 读，压测时可临时调大）=====
+    /** 令牌桶容量：桶里最多存多少个令牌 */
+    @Value("${seckill.limit.capacity:10}")
+    private long limitCapacity;
+
+    /** 令牌补充速率：每秒补充多少个 */
+    @Value("${seckill.limit.rate:5}")
+    private long limitRate;
+
     //构造器，也就是将所引入的类或接口进行实例化
         public SeckillService(SeckillGoodsMapper goodsMapper, SeckillOrderMapper orderMapper,
                       StringRedisTemplate stringRedisTemplate, RabbitTemplate rabbitTemplate) {
@@ -139,8 +150,9 @@ private static final String STOCK_LUA =
 
     // ② 方法（放在 testIncrement 下面）
 @Transactional
-public Result<?> doSeckillByRedis(Long userId, Long goodsId) {    // 全局限流窗口
-    Long allowed = tryTokenBucket("seckill:limit:all", 10, 5);
+public Result<?> doSeckillByRedis(Long userId, Long goodsId) {
+    // 全局限流窗口（容量、速率均从配置读，便于压测时调整）
+    Long allowed = tryTokenBucket("seckill:limit:all", limitCapacity, limitRate);
     if(allowed == null || allowed == 0){
         return  Result.error(429, "请求过于频繁，请稍后重试");
     }
