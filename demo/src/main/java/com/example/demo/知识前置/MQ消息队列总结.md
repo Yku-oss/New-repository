@@ -386,6 +386,50 @@ producer.sendMessageInTransaction(msg, order);
 
 ## 九、死信队列与延时消息
 
+### 0. ⭐⭐ 项目全链路速查：4 个队列 → 谁消费（2026-09-28 整理）
+
+> **用途**：串"全链路"用。看到队列名 → 立刻知道谁在收、干什么。
+> **对照方法**：全局搜 `@RabbitListener`，只有 2 处 → 对应 2 个消费者。
+
+| 队列名 | 谁消费 | 代码位置 | 干什么 |
+|---|---|---|---|
+| `seckill.order.queue` | **`OrderConsumer.consume()`** | `@RabbitListener(queues = SECKILL_ORDER_QUEUE)` | insert 订单（status=0） |
+| `seckill.order.delay.queue` | **❌ 没人（故意的）** | 无 `@RabbitListener` | 躺 30 分钟等 TTL 过期 |
+| `seckill.order.timeout.queue` | **`OrderTimeoutConsumer.consume()`** | `@RabbitListener(queues = SECKILL_ORDER_TIMEOUT_QUEUE)` | 查状态 → 取消/跳过 |
+| `seckill.order.dlq` | **❌ 没人（收尸用）** | 无 `@RabbitListener` | 存消费失败的消息 |
+
+**交换机（2 个）**：
+| 交换机 | 绑定 | 作用 |
+|---|---|---|
+| `seckill.delay.exchange` | → `delay.queue`（`delay.routingkey`） | 延迟消息入口 |
+| `seckill.dlx` ⭐ | → `dlq`（`dlq.routingkey`）<br>→ `timeout.queue`（`timeout.routingkey`） | **死信汇聚点，两链路共用** |
+
+**⭐ 全链路 3 跳**（串起来记这个）：
+
+```
+跳 1【发】SeckillService 发两条消息
+  ├─ 第1条 → seckill.order.queue        （要立刻响应）
+  └─ 第2条 → seckill.delay.exchange     （要定时）
+
+跳 2【收】两个 @RabbitListener
+  ├─ OrderConsumer        ← order.queue     → insert 订单
+  └─ OrderTimeoutConsumer ← timeout.queue   → 取消/跳过
+      （delay.queue 故意无消费者，专门"躺"）
+
+跳 3【连】delay.queue --TTL过期--> RabbitMQ内核搬运 --> seckill.dlx --分拣--> timeout.queue
+```
+
+**⭐ MQ 术语 → 代码翻译表**（串不起来时用）：
+
+| MQ 术语 | 在 Spring 代码里长什么样 |
+|---|---|
+| **生产者** | `rabbitTemplate.convertAndSend(...)` |
+| **消费者** | **`@RabbitListener` 注解的方法** |
+| **消费** | 那个方法**被执行** |
+| **队列** | `new Queue("xxx")` |
+| **绑定** | `BindingBuilder.bind(队列).to(交换机).with(rk)` |
+| **路由** | 交换机按 `routingKey` 查绑定表 |
+
 ### 1. 死信队列（DLQ）
 ```
     定义：消费失败且重试多次仍失败的消息 → 进入死信队列

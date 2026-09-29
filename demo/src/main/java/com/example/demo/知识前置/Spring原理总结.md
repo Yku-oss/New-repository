@@ -116,7 +116,7 @@ public void f() {
 }
 ```
 解决：catch 后重新 throw，或用 `@Transactional(rollbackFor = Exception.class)`（默认只回滚 RuntimeException）。
-
+  
 **核心排查套路**：
 ```
 遇到"该回滚没回滚" →

@@ -12,7 +12,7 @@
 	<artifactId>seckill</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>seckill</name>
-	<description>高并发库存秒杀系统（面试项目）</description>
+	<description>高并发库存秒杀系统</description>
 
 	<properties>
 		<java.version>21</java.version>

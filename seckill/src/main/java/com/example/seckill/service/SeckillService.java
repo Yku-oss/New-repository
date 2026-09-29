@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.seckill.common.Result;
+import com.example.seckill.common.SeckillResult;
 import com.example.seckill.entity.SeckillGoods;
 import com.example.seckill.entity.SeckillOrder;
 import com.example.seckill.mapper.SeckillGoodsMapper;
@@ -92,7 +93,7 @@ public class SeckillService {
                   userId + ":" + goodsId + ":" + orderNo);
         // 落单交给 MQ 消费者异步完成，这里不再同步 insert（否则会重复落单、订单号还不一致）
 
-        return Result.success("抢购成功，订单处理中，订单号：" + orderNo);
+        return Result.success(new SeckillResult(orderNo, "抢购成功，订单处理中"));
 
     }
 
@@ -207,7 +208,7 @@ public Result<?> doSeckillByRedis(Long userId, Long goodsId) {
             userId + ":" + goodsId + ":" + orderNo,
             new CorrelationData(orderNo + ":delay"));
 
-    return Result.success("抢购成功，订单处理中，订单号：" + orderNo);
+    return Result.success(new SeckillResult(orderNo, "抢购成功，订单处理中"));
 }
 
 
@@ -262,6 +263,18 @@ public Result<?> doSeckillByRedis(Long userId, Long goodsId) {
                 List.of("seckill:stock:" + goodsId));
     }
 
+    public Result<?> selectAllGoods() {
+        List<SeckillGoods> goods = goodsMapper.selectAll();
+        return Result.success(goods);
+    }
+
+    public Result<?> queryOrderByNo(String orderNo) {
+        SeckillOrder order = orderMapper.selectByOrderNo(orderNo);
+        if(order == null){
+            return Result.error(404, "订单不存在");
+        }
+        return Result.success(order);
+    }
 
 }
    

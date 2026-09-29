@@ -57,6 +57,12 @@ Untitled-*.cpp
 Untitled-*.txt
 Test.java
 
+# ============ Node / 前端 ============
+node_modules/
+dist/
+dist-ssr/
+*.local
+
 # ============ 大体积 / 无关目录 ============
 作业/
 模板/

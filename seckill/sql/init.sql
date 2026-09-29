@@ -1,6 +1,10 @@
 -- 秒杀系统初始化脚本
 -- 模块1：库存 / 订单两张核心表
 
+-- ⚠️ 强制客户端/连接使用 utf8mb4，避免中文乱码
+-- （2026-09-29 踩坑：用 PowerShell 的 Get-Content | mysql 导入会把中文转成乱码）
+SET NAMES utf8mb4;
+
 CREATE DATABASE IF NOT EXISTS seckill DEFAULT CHARACTER SET utf8mb4;
 USE seckill;
 

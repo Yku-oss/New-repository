@@ -1,0 +1,13 @@
+{
+  "name": "seckill",
+  "version": "1.0.0",
+  "description": "> 一个从零手写的**高并发电商秒杀系统**，聚焦「防超卖、削峰限流、消息可靠性」三大核心难点。\r > Spring Boot 3.4 + Java 21 + Redis + RabbitMQ + MySQL + Docker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

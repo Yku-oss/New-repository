@@ -1,9 +1,6 @@
 package com.example.seckill.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.seckill.common.Result;
 import com.example.seckill.service.SeckillService;
@@ -48,5 +45,13 @@ public class SeckillController {
         return Result.success("消息已发送: " + msg);
     }
 
-    
+    @GetMapping("/goods")
+    public Result<?> listGoods(){
+        return seckillService.selectAllGoods();
+    }
+
+    @GetMapping("/order")
+    public Result<?> queryOrder(@RequestParam String orderNo){
+        return seckillService.queryOrderByNo(orderNo);
+    }
 }
