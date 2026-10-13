@@ -93,3 +93,21 @@ pypthon/
 
 # 系统文件
 *.docx
+
+============ media / archive (never upload) ============
+*.mp4
+*.mp3
+*.zip
+*.rar
+*.7z
+
+============ frontend practice / personal files (keep local) ============
+seckill/frontend/*.html
+seckill/frontend/*.jpg
+seckill/frontend/*.png
+seckill/frontend/*.mp4
+seckill/frontend/src/*.jpg
+exrcise.vue
+seckill/frontend/src/*.js
+seckill/frontend/前端学习清单.md
+seckill/frontend/前端笔记/

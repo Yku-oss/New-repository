@@ -82,7 +82,7 @@ onMounted(loadGoods)
 
 <template>
   <div class="page">
-    <h1>⚡ 秒杀系统</h1>
+    <h1>⚡ 秒杀系统</h1>  
     <p class="sub">Spring Boot + Redis + RabbitMQ + Docker ｜ 前端 Vue 3 + Vite</p>
 
     <!-- ① 商品列表 -->

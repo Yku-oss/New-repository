@@ -276,5 +276,13 @@ public Result<?> doSeckillByRedis(Long userId, Long goodsId) {
         return Result.success(order);
     }
 
+    public Result<?> selectGoodsById(Long goodsId) {
+        SeckillGoods goods = goodsMapper.selectById(goodsId);
+        if(goods == null){
+            return Result.error(404,"商品不存在");
+        }
+        return Result.success(goods);
+    }
+
 }
    

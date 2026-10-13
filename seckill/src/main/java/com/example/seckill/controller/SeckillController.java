@@ -1,5 +1,6 @@
 package com.example.seckill.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.seckill.common.Result;
@@ -53,5 +54,9 @@ public class SeckillController {
     @GetMapping("/order")
     public Result<?> queryOrder(@RequestParam String orderNo){
         return seckillService.queryOrderByNo(orderNo);
+    }
+    @GetMapping("/goods/{id}")                      // 填路径（带 {id}）
+    public Result<?> getGoodsById(@PathVariable("id") Long id) {   // 填注解
+        return seckillService.selectGoodsById(id);   // 调 Service
     }
 }
