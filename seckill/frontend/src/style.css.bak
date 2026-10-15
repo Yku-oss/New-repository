@@ -1,0 +1,138 @@
+    p{
+            color: gray;
+            font-size: 100px;
+            text-align: center;
+        }
+        h2{
+          text-align: center;
+        }
+        a{
+            display: block;
+            height: 60px;
+           font-size: 40px;
+            color: gray;
+            text-decoration: none;
+            text-align: center;
+            background-color: yellowgreen;
+        }
+    img{
+        /* 转化为块级元素 */
+        display: block;
+        /* margin 就是页边距，当为0的时候就是居中 */
+        margin: 0 auto;
+    }
+
+    .video-col {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    .video-col video {
+        width: 480px;
+        justify-content: center;
+    }
+    table{
+        border-collapse: collapse;
+        margin: 0 auto;
+        width: 50%;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    table th {
+        background: #3498db;
+        color: white;
+        padding: 12px;
+        font-weight: bold;
+    }
+    table td {
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+    }
+    /* :nth-child 是选择器，也是伪类选择器，用于选择指定位置的元素
+    even是偶数行，odd是奇数行，跳转变色 */
+    table tr:nth-child(even) td {
+        background: #f2f7fb;
+    } 
+    /* hover是鼠标悬停变色 */
+    table tr:hover td {
+        background: #f0fde8;
+    } 
+
+    .nav{
+      display: flex;
+      font-size: 40px;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 20px;
+      background-color: #3498db;
+      color: white;
+    }
+
+    .row{
+        display: flex;
+        gap: 15px;
+    }
+    .col{
+        flex: 1;
+        padding: 30px;
+        background-color: #f2f7fb;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+
+    .grid{
+        display: grid;
+        /* grid-template-columns 是网格的列模板，1fr 是等比例分配 */
+        grid-template-columns: 1fr 1fr 1fr;
+        /* gap 是网格间距 */
+        gap: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .img-col{
+        transition: all 0.8s;
+        animation: spin 5s linear infinite;
+    }
+    @keyframes spin {
+       from{transform: rotate(0deg);}
+       to{transform: rotate(360deg);}
+    }
+    .img-col:hover{
+        transform: scale(1.1);
+        background-color: #eae8fd;
+    }
+    #lan img {
+        position: relative;
+        margin: 0;
+        animation: move 5s linear infinite alternate;
+    }
+    @keyframes move {
+        from { left: 0; }
+        to { left: calc(100% - 800px); }
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,3 +20,5 @@ export const doSeckill = (userId,goodsId) =>
 
 export const getOrder = (orderNo) =>
     axios.get(`${BASE}/order`,{params: {orderNo}})
+
+export const getGoodsById = (id) => axios.get(`${BASE}/goods/${id}`)
